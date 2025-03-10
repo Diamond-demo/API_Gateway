@@ -48,38 +48,38 @@ function authRole(role) {
 
 app.use('/register', (req, res) => {
     console.log("INSIDE API GATEWAY REGISTRATION");
-    proxy.web(req, res, { target: `${REGISTER_IP}:5001` }); // Assuming registration is part of auth service
+    proxy.web(req, res, { target: `http://${REGISTER_IP}:5001` }); // Assuming registration is part of auth service
 });
 
 app.use('/auth', (req, res) => {
     console.log("INSIDE API GATEWAY AUTHENTICATION/LOGIN");
-    proxy.web(req, res, { target: `${LOGIN_IP}:5002` }); // Assuming login is part of auth service
+    proxy.web(req, res, { target: `http://${LOGIN_IP}:5002` }); // Assuming login is part of auth service
 });
 
 app.use('/update-product', authToken, authRole('admin'), (req, res) => {
     console.log("INSIDE API GATEWAY UPDATE PRODUCT");
-    proxy.web(req, res, { target: `${UPDATE_IP}:5003` });
+    proxy.web(req, res, { target: `http://${UPDATE_IP}:5003` });
 });
 
 app.use('/search-product', authToken, (req, res) => {
     console.log("INSIDE API GATEWAY SEARCH PRODUCT");
-    proxy.web(req, res, { target: `${SEARCH_IP}:5004` });
+    proxy.web(req, res, { target: `http://${SEARCH_IP}:5004` });
 });
 
 app.use('/view-product', authToken, (req, res) => {
     console.log("INSIDE API GATEWAY VIEW PRODUCT");
-    proxy.web(req, res, { target: `${VIEW_IP}:5005` });
+    proxy.web(req, res, { target: `http://${VIEW_IP}:5005` });
 });
 
 
 app.use('/add-product', authToken, authRole('admin'), (req, res) => {
     console.log("INSIDE API GATEWAY ADD PRODUCT");
-    proxy.web(req, res, { target: `${ADD_IP}:5006` });
+    proxy.web(req, res, { target: `http://${ADD_IP}:5006` });
 });
 
 app.use('/delete-product', authToken, authRole('admin'), (req, res) => {
     console.log("INSIDE API GATEWAY DELETE PRODUCT");
-    proxy.web(req, res, { target: `${DELETE_IP}:5007` });
+    proxy.web(req, res, { target: `http://${DELETE_IP}:5007` });
 });
 
 app.listen(port, () => {
