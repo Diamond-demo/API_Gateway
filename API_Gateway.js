@@ -56,12 +56,12 @@ app.use('/auth', (req, res) => {
     proxy.web(req, res, { target: `http://${LOGIN_IP}:5002` }); // Assuming login is part of auth service
 });
 
-app.use('/update-product', authToken, authRole('admin'), (req, res) => {
+app.use('/update-product', authToken, authRole('user'), (req, res) => {
     console.log("INSIDE API GATEWAY UPDATE PRODUCT");
     proxy.web(req, res, { target: `http://${UPDATE_IP}:5003` });
 });
 
-app.use('/search-product', authToken, (req, res) => {
+app.use('/search-product', authToken, authRole('user'), (req, res) => {
     console.log("INSIDE API GATEWAY SEARCH PRODUCT");
     proxy.web(req, res, { target: `http://${SEARCH_IP}:5004` });
 });
